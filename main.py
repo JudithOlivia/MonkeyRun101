@@ -39,8 +39,3 @@ player_image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT
 ground_image = pygame.image.load("Ground.png").convert_alpha()
 ground_image = pygame.transform.scale(ground_image, (WIDTH, GROUND_HEIGHT))
 
-
-
-
-
-
