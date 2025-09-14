@@ -27,6 +27,8 @@ INIT_SPEED = 4
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
+#    [pygame.image.load("x.png").convert_alpha(), 
+
 background_img = pygame.image.load("StartBG.png").convert()
 background_img = pygame.transform.scale(background_img (WIDTH, HEIGHT))
 
