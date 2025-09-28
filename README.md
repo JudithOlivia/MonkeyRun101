@@ -1,5 +1,27 @@
 # MonkeyRun
 
+**🐒 Installation Instructions**
+***System Requirements:***
+OS: Windows 7 or newer
+Storage: 50 MB free space
+No additional software required - completely standalone!
+
+**📥 Installation Steps**
+***Method 1: Simple Download & Play***
+1. Download the MonkeyRun.zip file
+
+2. Extract the zip file to any folder on your computer
+
+3. Double-click MonkeyRun.exe to start playing!
+
+4. No installation needed - just run and play
+
+
+
+
+
+## Game Mechanics:- ##
+
 **Basic Controls**
 SPACE, UP ARROW, W, or E keys to JUMP
 
@@ -7,7 +29,6 @@ Double Jump: Press jump key twice for a second jump in mid-air
 
 R key to RESTART after game over
 
-**Game Mechanics:-**
 **Character Movement**
 Your monkey character automatically runs forward
 
@@ -62,25 +83,3 @@ Compete with yourself to improve!
 
 
 
-**Prerequisites**
-1. Python 3.x installed
-
-2. Pygame library installed
-
-**Installation**
-1. Download all game files to a folder
-
-2. Required image files:
-
-StartBG.png (Start screen background)
-Background.png (Game background)
-Player2.png (Monkey character)
-Ground.png (Ground texture)
-snake.png (Snake obstacle)
-float.png (Eagle obstacle)
-Thorn.png (Thorn obstacle)
-lake.png (Wood obstacle)
-
-3. Install Pygame if not already installed
-
-4. Run the game
