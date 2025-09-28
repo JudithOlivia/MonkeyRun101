@@ -2,24 +2,8 @@ import pygame
 import random
 import json
 import os
-import pygame
 
 pygame.init()
-screen = pygame.display.set_mode((640, 480))
-pygame.display.set_caption("Pygame in Browser")
-clock = pygame.time.Clock()
-
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-pygame.quit()
-
-
-
-pygame.init()
-
 
 WIDTH, HEIGHT = 800, 400
 FPS = 60
@@ -44,19 +28,35 @@ INIT_SPEED = 4
 
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-background_img = pygame.image.load("StartBG.png").convert()
-background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
+# Load images with error handling
+try:
+    background_img = pygame.image.load("StartBG.png").convert()
+    background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
+except:
+    background_img = pygame.Surface((WIDTH, HEIGHT))
+    background_img.fill(GREEN)
 
-background1_img = pygame.image.load("Background.png").convert()
-background1_img = pygame.transform.scale(background1_img, (WIDTH, HEIGHT))
+try:
+    background1_img = pygame.image.load("Background.png").convert()
+    background1_img = pygame.transform.scale(background1_img, (WIDTH, HEIGHT))
+except:
+    background1_img = pygame.Surface((WIDTH, HEIGHT))
+    background1_img.fill(BLUE)
 
-player_image = pygame.image.load("Player2.png").convert()
-player_image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
+try:
+    player_image = pygame.image.load("Player2.png").convert()
+    player_image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
+except:
+    player_image = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
+    player_image.fill(RED)
 
-ground_img = pygame.image.load("Ground.png").convert_alpha()
-ground_img = pygame.transform.scale(ground_img, (WIDTH, GROUND_HEIGHT))
+try:
+    ground_img = pygame.image.load("Ground.png").convert_alpha()
+    ground_img = pygame.transform.scale(ground_img, (WIDTH, GROUND_HEIGHT))
+except:
+    ground_img = pygame.Surface((WIDTH, GROUND_HEIGHT))
+    ground_img.fill(BROWN)
 
-screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Monkey Run")
 clock = pygame.time.Clock()
 font = pygame.font.SysFont(None, 60)
@@ -65,11 +65,14 @@ small_font = pygame.font.SysFont(None, 32)
 login_button = pygame.Rect(WIDTH - 100, 10, 80, 30)
 ground_scroll_x = 0 
 
-
 class Player:
     def __init__(self):
-        self.image = pygame.image.load("Player2.png").convert_alpha()
-        self.image = pygame.transform.scale(self.image, (PLAYER_WIDTH, PLAYER_HEIGHT)) 
+        try:
+            self.image = pygame.image.load("Player2.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, (PLAYER_WIDTH, PLAYER_HEIGHT))
+        except:
+            self.image = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
+            self.image.fill(RED)
         self.rect = self.image.get_rect()
         self.rect.x = 100 
         self.rect.y = HEIGHT - GROUND_HEIGHT - self.rect.height + 10
@@ -105,30 +108,46 @@ class Obstacle:
         if type_ == 'rock':
             self.width = PLAYER_WIDTH + 50  
             self.height = PLAYER_HEIGHT - 20 
-            self.image = pygame.image.load("snake.png").convert_alpha()  
-            self.image = pygame.transform.scale(self.image, (self.width, self.height)) 
+            try:
+                self.image = pygame.image.load("snake.png").convert_alpha()
+                self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            except:
+                self.image = pygame.Surface((self.width, self.height))
+                self.image.fill(GRAY)
             self.rect = self.image.get_rect()
             self.rect.x = WIDTH
             self.rect.y = HEIGHT - GROUND_HEIGHT - self.height + 10
         elif type_ == 'floating':
             self.width = PLAYER_WIDTH + 60
             self.height = PLAYER_HEIGHT + 10
-            self.image = pygame.image.load("float.png").convert_alpha()
-            self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            try:
+                self.image = pygame.image.load("float.png").convert_alpha()
+                self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            except:
+                self.image = pygame.Surface((self.width, self.height))
+                self.image.fill(BLUE)
             self.rect = pygame.Rect(WIDTH, HEIGHT - GROUND_HEIGHT - self.height - 140, self.width, self.height)
         elif type_ == 'thorn':
             self.width = PLAYER_WIDTH - 10
             self.height = PLAYER_HEIGHT + 0.2
-            self.image = pygame.image.load("Thorn.png").convert_alpha()  
-            self.image = pygame.transform.scale(self.image, (self.width, self.height))  
+            try:
+                self.image = pygame.image.load("Thorn.png").convert_alpha()
+                self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            except:
+                self.image = pygame.Surface((self.width, self.height))
+                self.image.fill(RED)
             self.rect = self.image.get_rect()
             self.rect.x = WIDTH
             self.rect.y = HEIGHT - GROUND_HEIGHT - self.height + 10
         elif type_ == 'lake':
             self.width = 100
             self.height = GROUND_HEIGHT + 30
-            self.image = pygame.image.load("lake.png").convert_alpha()  
-            self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            try:
+                self.image = pygame.image.load("lake.png").convert_alpha()
+                self.image = pygame.transform.scale(self.image, (self.width, self.height))
+            except:
+                self.image = pygame.Surface((self.width, self.height))
+                self.image.fill(BLUE)
             self.rect = pygame.Rect(WIDTH, HEIGHT - GROUND_HEIGHT - self.height + GROUND_HEIGHT - 10, self.width , self.height )
         else:
             self.width = 40
@@ -147,11 +166,9 @@ class Obstacle:
         if hasattr(self, 'image'):
             surface.blit(self.image, self.rect)
         else:
-            pygame.draw.rect(surface, (255, 0, 0), self.rect)  
-
+            pygame.draw.rect(surface, (255, 0, 0), self.rect)
 
 def generate_obstacle(existing_obstacles):
-    
     lake_present = any(obs.type == 'lake' for obs in existing_obstacles)
 
     if lake_present:
@@ -175,7 +192,6 @@ def draw_start_screen():
 
     pygame.display.update()
 
-
 def draw_lose_screen():
     screen.fill(BLACK)
     lost = font.render("You Lost :(", True, WHITE)
@@ -185,27 +201,40 @@ def draw_lose_screen():
     pygame.display.update()
 
 def load_high_score(email):
-    if os.path.exists("scores.json"):
-        with open("scores.json", "r") as f:
-            scores = json.load(f)
-        return scores.get(email, 0)
+    try:
+        if os.path.exists("scores.json"):
+            with open("scores.json", "r") as f:
+                # Check if file is not empty
+                if os.path.getsize("scores.json") > 0:
+                    scores = json.load(f)
+                    return scores.get(email, 0)
+    except (json.JSONDecodeError, Exception) as e:
+        print(f"Error loading high score: {e}")
+        # If there's an error, create a new empty file
+        with open("scores.json", "w") as f:
+            json.dump({}, f)
     return 0
 
 def save_high_score(email, score):
-    scores = {}
-    if os.path.exists("scores.json"):
-        with open("scores.json", "r") as f:
-            scores = json.load(f)
-    scores[email] = max(scores.get(email, 0), score)
-    with open("scores.json", "w") as f:
-        json.dump(scores, f)
+    try:
+        scores = {}
+        if os.path.exists("scores.json") and os.path.getsize("scores.json") > 0:
+            with open("scores.json", "r") as f:
+                scores = json.load(f)
+        
+        scores[email] = max(scores.get(email, 0), score)
+        
+        with open("scores.json", "w") as f:
+            json.dump(scores, f)
+    except Exception as e:
+        print(f"Error saving high score: {e}")
 
 logged_in = False
 name = ""
 email = ""
 high_score = 0
 new_high_score_shown = False
- 
+
 def main():
     global score, high_score, show_new_high_score, show_new_high_score_time, name, email, ground_scroll_x, new_high_score_shown, logged_in
 
@@ -218,16 +247,13 @@ def main():
 
     invincible = False
     hit_timer = 0
-    INVINCIBILITY_DURATION = 1500   
+    INVINCIBILITY_DURATION = 1500
 
     last_speed_increase = 0
-
 
     score = 0
     show_new_high_score = False
     show_new_high_score_time = 0
-    
-
 
     while True:
         clock.tick(FPS)
@@ -260,13 +286,9 @@ def main():
                 show_new_high_score_time = current_time
                 new_high_score_shown = True
 
-
-
-
         if started and not lost and current_time - last_speed_increase >= 5000:
             speed += 0.2
             last_speed_increase = current_time
-
 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -289,15 +311,12 @@ def main():
                     score = 0
                     new_high_score_shown = False
 
-
         if not started:
-            draw_start_screen()
             continue
 
         if lost:
             draw_lose_screen()
             continue
- 
 
         screen.blit(background1_img, (0, 0))
         ground_scroll_x -= speed
@@ -307,11 +326,9 @@ def main():
         screen.blit(ground_img, (ground_scroll_x, HEIGHT - GROUND_HEIGHT))
         screen.blit(ground_img, (ground_scroll_x + WIDTH, HEIGHT - GROUND_HEIGHT))
 
-
-
         player.update()
 
-        if not invincible or (current_time // 100 % 2 == 0):  
+        if not invincible or (current_time // 100 % 2 == 0):
             player.draw(screen)
 
         if invincible and current_time - hit_timer >= INVINCIBILITY_DURATION:
@@ -343,10 +360,6 @@ def main():
                         if lives <= 0:
                             if logged_in:
                                 save_high_score(email, int(score))
-
-                            lost = True
-
-
                             lost = True
                         else:
                             player.rect.x = 100
@@ -362,9 +375,7 @@ def main():
                     if lives <= 0:
                         if logged_in:
                             save_high_score(email, int(score))
-
                         lost = True
-
                     else:
                         player.rect.x = 100
                         player.rect.y = HEIGHT - GROUND_HEIGHT - PLAYER_HEIGHT
@@ -383,19 +394,14 @@ def main():
             high_score_text = small_font.render(f"High Score: {int(high_score)}", True, WHITE)
             screen.blit(high_score_text, (WIDTH - 160, 40))
 
-
-        BLINK_INTERVAL = 300  
+        BLINK_INTERVAL = 300
 
         if logged_in and show_new_high_score and current_time - show_new_high_score_time <= 2500:
-
             if (current_time // BLINK_INTERVAL) % 2 == 0:
                 popup_text = font.render("New High Score!", True, (255, 215, 0))
                 screen.blit(popup_text, popup_text.get_rect(center=(WIDTH // 2, 30)))
         else:
             show_new_high_score = False
-
-
-
 
         pygame.display.update()
 
@@ -428,4 +434,3 @@ def get_text_input(prompt_text):
 
 if __name__ == "__main__":
     main()
-
