@@ -8,15 +8,20 @@ Storage: 50 MB free space
 No additional software required - completely standalone!
 
 **📥 Installation Steps**
-***Method 1: Simple Download & Play***
-1. Download the MonkeyRun.zip file
 
-2. Extract the zip file to any folder on your computer
+1. In Github, Click on MonkerRun-v1 under Releases 
 
-3. Double-click MonkeyRun.exe to start playing!
+2. Click on "main.exe" to download the game.
 
-4. No installation needed - just run and play
+3. In your personal folder, double-click main.exe to start playing!
 
+**If warning appears:**
+
+Click “...” or “Keep” → then choose “Keep anyway”.
+
+On Chrome: click the small arrow next to the download warning → Keep.
+
+On Edge: click “More actions” → “Keep anyway.”
 
 
 
