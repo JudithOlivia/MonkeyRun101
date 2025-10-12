@@ -5,7 +5,6 @@ import os
 import sys
 
 def resource_path(relative_path):
-    """Get absolute path to resource, works for dev and PyInstaller."""
     try:
         base_path = sys._MEIPASS  # temporary folder when running .exe
     except Exception:
@@ -40,28 +39,28 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
 # Load images with error handling
 try:
-    background_img = pygame.image.load(resource_path("StartBG.png")).convert()
+    background_img = pygame.image.load("StartBG.png").convert()
     background_img = pygame.transform.scale(background_img, (WIDTH, HEIGHT))
 except:
     background_img = pygame.Surface((WIDTH, HEIGHT))
     background_img.fill(GREEN)
 
 try:
-    background1_img = pygame.image.load(resource_path("Background.png")).convert()
+    background1_img = pygame.image.load("Background.png").convert()
     background1_img = pygame.transform.scale(background1_img, (WIDTH, HEIGHT))
 except:
     background1_img = pygame.Surface((WIDTH, HEIGHT))
     background1_img.fill(BLUE)
 
 try:
-    player_image = pygame.image.load(resource_path("Player2.png")).convert()
+    player_image = pygame.image.load("Player2.png").convert()
     player_image = pygame.transform.scale(player_image, (PLAYER_WIDTH, PLAYER_HEIGHT))
 except:
     player_image = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
     player_image.fill(RED)
 
 try:
-    ground_img = pygame.image.load(resource_path("Ground.png")).convert_alpha()
+    ground_img = pygame.image.load("Ground.png").convert_alpha()
     ground_img = pygame.transform.scale(ground_img, (WIDTH, GROUND_HEIGHT))
 except:
     ground_img = pygame.Surface((WIDTH, GROUND_HEIGHT))
@@ -78,7 +77,7 @@ ground_scroll_x = 0
 class Player:
     def __init__(self):
         try:
-            self.image = pygame.image.load(resource_path("Player2.png")).convert_alpha()
+            self.image = pygame.image.load("Player2.png").convert_alpha()
             self.image = pygame.transform.scale(self.image, (PLAYER_WIDTH, PLAYER_HEIGHT))
         except:
             self.image = pygame.Surface((PLAYER_WIDTH, PLAYER_HEIGHT))
@@ -119,7 +118,7 @@ class Obstacle:
             self.width = PLAYER_WIDTH + 50  
             self.height = PLAYER_HEIGHT - 20 
             try:
-                self.image = pygame.image.load(resource_path("snake.png")).convert_alpha()
+                self.image = pygame.image.load("snake.png").convert_alpha()
                 self.image = pygame.transform.scale(self.image, (self.width, self.height))
             except:
                 self.image = pygame.Surface((self.width, self.height))
@@ -131,7 +130,7 @@ class Obstacle:
             self.width = PLAYER_WIDTH + 60
             self.height = PLAYER_HEIGHT + 10
             try:
-                self.image = pygame.image.load(resource_path("float.png")).convert_alpha()
+                self.image = pygame.image.load("float.png").convert_alpha()
                 self.image = pygame.transform.scale(self.image, (self.width, self.height))
             except:
                 self.image = pygame.Surface((self.width, self.height))
@@ -141,7 +140,7 @@ class Obstacle:
             self.width = PLAYER_WIDTH - 10
             self.height = PLAYER_HEIGHT + 0.2
             try:
-                self.image = pygame.image.load(resource_path("Thorn.png")).convert_alpha()
+                self.image = pygame.image.load("Thorn.png").convert_alpha()
                 self.image = pygame.transform.scale(self.image, (self.width, self.height))
             except:
                 self.image = pygame.Surface((self.width, self.height))
@@ -153,7 +152,7 @@ class Obstacle:
             self.width = 100
             self.height = GROUND_HEIGHT + 30
             try:
-                self.image = pygame.image.load(resource_path("lake.png")).convert_alpha()
+                self.image = pygame.image.load("lake.png").convert_alpha()
                 self.image = pygame.transform.scale(self.image, (self.width, self.height))
             except:
                 self.image = pygame.Surface((self.width, self.height))
